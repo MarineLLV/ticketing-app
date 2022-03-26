@@ -15,12 +15,18 @@ spec:
       containers:
         - name: auth
           image: marinellv/auth
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: auth-srv
-spec: 
+spec:
   selector:
     app: auth
   ports:
